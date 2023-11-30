@@ -9,11 +9,14 @@
     const yearInput = document.querySelector("#inputBookYear");
     const isCompleteCheckbox = document.querySelector("#inputBookIsComplete");
 
+    // Mengonversi variabel yearInput dari string ke integer dgn metode Number()
+    const yearValue = Number(yearInput.value);
+
     const newBook = {
       id: +new Date(),
       title: titleInput.value,
       author: authorInput.value,
-      year: yearInput.value,
+      year: yearValue,
       isComplete: isCompleteCheckbox.checked,
     };
 
