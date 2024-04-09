@@ -1,6 +1,6 @@
 # Submission Aplikasi Pengelolaan Data Menggunakan DOM dan Web Storage
 
-Selamat! Akhirnya Anda telah sampai di penghujung pembelajaran. Anda telah mempelajari:
+Berikut adalah penjelesan mengenai Submission aplikasi pengelolaan data menggunakan DOM & Web Storage:
 
 ## Pengantar
 
