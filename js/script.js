@@ -1,3 +1,4 @@
+// ini adalah array untuk menyimpan data buku
 let books = [];
 
 function addBook(event) {
@@ -47,19 +48,23 @@ function searchBooks(event) {
   searchTitleInput.value = "";
 }
 
+// book has been read
 function markAsComplete(event) {
   const bookId = Number(event.target.id);
   updateBookStatus(bookId, true);
 }
 
+// book hasn't been read yet
 function markAsIncomplete(event) {
   const bookId = Number(event.target.id);
   updateBookStatus(bookId, false);
 }
 
+// update book has read or not
 function updateBookStatus(bookId, isComplete) {
   const bookIndex = books.findIndex((book) => book.id === bookId);
 
+  // if the book is found, update its status and dispatch the event
   if (bookIndex !== -1) {
     books[bookIndex] = { ...books[bookIndex], isComplete };
     document.dispatchEvent(new Event("bookChanged"));
@@ -67,10 +72,12 @@ function updateBookStatus(bookId, isComplete) {
   }
 }
 
+// function to remove a book
 function removeBook(event) {
   const bookId = Number(event.target.id);
   const bookIndex = books.findIndex((book) => book.id === bookId);
 
+  // if the book is found, remove it from the array and dispatch the event
   if (bookIndex !== -1) {
     books.splice(bookIndex, 1);
     document.dispatchEvent(new Event("bookChanged"));
@@ -83,10 +90,12 @@ function editBook(event) {
   const bookToEdit = books.find((book) => book.id === bookId);
 
   if (bookToEdit) {
+    // show the current values in a prompt for the user to edit
     const editedTitle = prompt("Edit Title:", bookToEdit.title);
     const editedAuthor = prompt("Edit Author:", bookToEdit.author);
     const editedYear = prompt("Edit Year:", bookToEdit.year);
 
+    // edit the book object with the new values, if provided
     const editedBook = {
       ...bookToEdit,
       title: editedTitle || bookToEdit.title,
@@ -94,7 +103,10 @@ function editBook(event) {
       year: editedYear || bookToEdit.year,
     };
 
+    // update the book in the array
     const bookIndex = books.findIndex((book) => book.id === bookId);
+
+    // if the book is found, update its status and dispatch the event
     if (bookIndex !== -1) {
       books[bookIndex] = editedBook;
       document.dispatchEvent(new Event("bookChanged"));
@@ -103,12 +115,13 @@ function editBook(event) {
   }
 }
 
+// function to display books in the UI
 function displayBooks(booksToShow) {
   const incompleteBookshelfList = document.querySelector(
-    "#incompleteBookshelfList"
+    "#incompleteBookshelfList",
   );
   const completeBookshelfList = document.querySelector(
-    "#completeBookshelfList"
+    "#completeBookshelfList",
   );
 
   incompleteBookshelfList.innerHTML = "";
@@ -172,10 +185,12 @@ function displayBooks(booksToShow) {
   }
 }
 
+// this function saves the current state of the books array to local storage
 function saveBooksToLocalStorage() {
   localStorage.setItem("books", JSON.stringify(books));
 }
 
+// loads the books from local storage and displays them in the UI
 function loadBooksFromLocalStorage() {
   books = JSON.parse(localStorage.getItem("books")) || [];
   displayBooks(books);
